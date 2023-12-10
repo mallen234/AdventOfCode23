@@ -27,12 +27,7 @@ public class PokerHandComparator implements Comparator<Pair> {
         for (char card : hand.toCharArray()){
             vals.merge(card , 1,Integer::sum);
         }
-        int jokerValue = 0;
-//        if (vals.get('J') != null){
-//            jokerValue = vals.get('J');
-//            vals.put('J',0);
-//        }
-        return (Collections.max(vals.values()) + jokerValue );
+        return (Collections.max(vals.values()) );
     }
 
     private static int compareHighCard(String hand1, String hand2){
@@ -51,8 +46,8 @@ public class PokerHandComparator implements Comparator<Pair> {
 
     @Override
     public int compare(Pair p1, Pair p2) {
-        String hand1 = p1.getHand();
-        String hand2 = p2.getHand();
+        String hand2 = p1.getHand();
+        String hand1 = p2.getHand();
 
         int maxHand1 = numberOfSameCard(hand1);
         System.out.println(this);

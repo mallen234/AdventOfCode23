@@ -34,23 +34,26 @@ public class main {
         HashHand hh = new HashHand();
 //        System.out.println(hh.getValue('2'));
 
-//        PokerHandComparator pokerComparator  = new PokerHandComparator();
-//        PriorityQueue<Pair> sortedHands = new PriorityQueue<>(pokerComparator);
-//        sortedHands.addAll(hands);
-//        System.out.println(sortedHands);
+        PokerHandComparator pokerComparator  = new PokerHandComparator();
+        PriorityQueue<Pair> sortedHands = new PriorityQueue<>(pokerComparator);
+        sortedHands.addAll(hands);
+        System.out.println(sortedHands);
+        System.out.println(sortedHands.peek());
 
-        System.out.println(hands);
-        Collections.sort(hands);
-        System.out.println(hands);
+
+
+//        System.out.println(hands);
+//        Collections.sort(hands);
+//        System.out.println(hands);
 
 //        System.out.println(pokerComparator.compare(hands.get(2),hands.get(6)));
-        int tot = 0;
-        for (int i = 0;  i < hands.size(); i++){
-            int j = i+1;
-            System.out.println(hands.get(i) + " " + j);
-            tot += hands.get(i).getBet() * (i+1);
-        }
-        System.out.println(tot);
+//        int tot = 0;
+//        for (int i = 0;  i < hands.size(); i++){
+//            int j = i+1;
+//            System.out.println(hands.get(i) + " " + j);
+//            tot += hands.get(i).getBet() * (i+1);
+//        }
+//        System.out.println(tot);
 
 
     }

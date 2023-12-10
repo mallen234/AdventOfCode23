@@ -27,32 +27,54 @@ public class Pair implements Comparable<Pair>{
         return (hand + " " + (getBet()));
     }
 
+    private static boolean isOriginalTwoPair(String hand){
+        HashMap<Character,Integer> val = new HashMap<>();
+        for (char card : hand.toCharArray()){
+            val.merge(card , 1,Integer::sum);
+        }
+        int twoPair = Collections.frequency(val.values(), 2);
+        return twoPair == 2;
+    }
+
     private static boolean isTwoPair(String hand){
         HashMap<Character,Integer> val = new HashMap<>();
         for (char card : hand.toCharArray()){
             val.merge(card , 1,Integer::sum);
         }
-        int twoPair = 0;
-        for (Integer counts : val.values()){
-            if (counts == 2){
-                twoPair ++;
-            }
+        int twoPair = Collections.frequency(val.values(), 2);
+        if (val.get('J') == null){
+            return (twoPair == 2);
+        } else if (val.get('J') == 1){
+            return twoPair == 1;
+        } else {
+            return true;
         }
-        return (twoPair == 2);
     }
     private static boolean isFullHouse(String hand){
         HashMap<Character,Integer> val = new HashMap<>();
         for (char card : hand.toCharArray()){
             val.merge(card , 1,Integer::sum);
         }
-        return (val.containsValue(3) & val.containsValue(2));
+        if (val.get('J') == null || val.get('J') == 3 ){
+            return (val.containsValue(3) & val.containsValue(2));
+        } else if (val.get('J') == 1){
+            return isOriginalTwoPair(hand);
+        } else{
+            return false;
+        }
+
     }
     private static int numberOfSameCard(String hand){
         HashMap<Character,Integer> val = new HashMap<>();
         for (char card : hand.toCharArray()){
             val.merge(card , 1,Integer::sum);
         }
-        return (Collections.max(val.values()));
+        int jokerValue = 0;
+        if (val.get('J') != null){
+            jokerValue = val.get('J');
+            val.put('J',0);
+        }
+        return (Collections.max(val.values()) + jokerValue);
     }
 
     private static int compareHighCard(String hand1, String hand2){
