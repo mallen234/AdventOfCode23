@@ -1,4 +1,6 @@
 package com.thehutgroup.accelerator.marcus.day11;
+import com.thehutgroup.accelerator.marcus.data.Data;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +41,7 @@ public class Main {
 //        }
 
 
-        for (List<String> a : data.getData()){
+        for (List<String> a : data.getGrid()){
             System.out.println(a);
         }
 //        System.out.println(data.getData());

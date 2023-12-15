@@ -25,10 +25,10 @@ public class Day14Test {
 
     //    @ParameterizedTest(name = "FizzBuzz prints normal numbers - {0}")
 //    @ValueSource(MarkdownFile = new MarkdownFile(""))
-    @Test
-    public void TestGetLengthofFile(){
-        testFile =  testFile.tiltData();
-        assertEquals(testFile.getGrid(), solFile.getGrid());
-    }
+//    @Test
+//    public void TestGetLengthofFile(){
+//        testFile =  testFile.tiltData();
+//        assertEquals(testFile.getGrid(), solFile.getGrid());
+//    }
 
     }

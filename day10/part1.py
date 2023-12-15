@@ -15,8 +15,8 @@ class Day10:
         self.pad_data = ["." + a + "." for a in self.data]
         self.pad_data.insert(0,"." * len(self.pad_data[0]))
         self.pad_data.append("." * len(self.pad_data[0]))
-        self.extra_dots = len(self.pad_data) * 2 + len(self.pad_data[0]) - 4
-
+        self.no_extra_dots = len(self.pad_data) * 2 + len(self.pad_data[0]) - 4
+        self.pd = self.pad_data
 
     def _read_data(self,input_file):
         with open(input_file) as file:
