@@ -11,6 +11,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class main {
+    public static HashMap<Character,Integer> dirMap = new HashMap<>();
+    public static HashMap<String,List<String>> camelMap = new HashMap<>();
+    public static List<Character> directions = new ArrayList<>();
     public static List<Character> traverseString(String str) {
         List<Character> splitStr = new ArrayList<>();
 
@@ -27,62 +30,70 @@ public class main {
         return str.substring(str.length()-1);
     }
 
-    public static boolean checkIfFinalAreZ(List<String> positions){
-        for (String pos : positions){
-            if (getFinalStrElement(pos) != "Z"){
+    public static Integer findStepsToZ(String pos) {
+        int i = 0;
+        while (!getFinalStrElement(pos).equals("Z")) {
+//            List<String> updatedPositions = new ArrayList<>();
+//        for (int j = 0; j < position.size(); j++){
+//            position.set(j,camelMap.get(position.get(j)).get(dirMap.get(direction.get((i % 271)))));
+//        }
+
+//            System.out.println(i);
+            pos = camelMap.get(pos).get(dirMap.get(directions.get((i % 271))));
+//            System.out.println(pos + ": " + i);
+            i++;
+
+        }
+        return i;
+    }
+    public static boolean checkIfFinalAreZ (List <String> positions) {
+        for (String pos : positions) {
+            if (!getFinalStrElement(pos).equals("Z")) {
                 return false;
             }
         }
         return true;
     }
 
-    public static void main(String[] args) throws IOException {
-        List<String> data = Files.readAllLines(Path.of("input.txt"));
+    public static void main (String[]args) throws IOException {
+        List<String> data = Files.readAllLines(Path.of("input8.txt"));
         List<String> maps = (data.subList(2, data.size()));
 
-        HashMap<Character,Integer> dirMap = new HashMap<>();
-        dirMap.put('L',0);
-        dirMap.put('R',1);
+        dirMap = new HashMap<>();
+        dirMap.put('L', 0);
+        dirMap.put('R', 1);
 
-        List<Character> directions = traverseString(data.get(0));
+        directions = traverseString(data.get(0));
 //        System.out.println(directions);
-        HashMap<String,List<String>> camelMap = new HashMap<>();
+//        HashMap<String, List<String>> camelMap = new HashMap<>();
 
 
-
-        for (String mapElement : maps){
-            Pattern pattern = Pattern.compile("[A-Z]{3}");
+        for (String mapElement : maps) {
+            Pattern pattern = Pattern.compile("[A-Z0-9]{3}");
             Matcher matcher = pattern.matcher(mapElement);
             List<String> newKey = new ArrayList<>();
             while (matcher.find()) {
                 newKey.add(matcher.group());
             }
-            camelMap.put(newKey.get(0),newKey.subList(1,3));
+            camelMap.put(newKey.get(0), newKey.subList(1, 3));
         }
 
+        List<String> positions1 = new ArrayList<>();
         List<String> positions = new ArrayList<>();
-        for (String pos: camelMap.keySet()){
-            if (getFinalStrElement(pos).equals("A")){
+        for (String pos : camelMap.keySet()) {
+            if (getFinalStrElement(pos).equals("A")) {
                 positions.add(pos);
             }
         }
 
-
-        System.out.println(positions);
-        int i = 0;
-        while (!checkIfFinalAreZ(positions)){
-//            List<String> updatedPositions = new ArrayList<>();
-            for (int j = 0; j < positions.size(); j++){
-                positions.set(j,camelMap.get(positions.get(j)).get(dirMap.get(directions.get((i % 271) ))));
-            }
-
-            System.out.println(positions);
-//            pos = camelMap.get(pos).get(dirMap.get(directions.get((i % 271) )));
-//            System.out.println(pos + ": "  + i);
-            i++;
+        List<Integer> outputs = new ArrayList<>();
+        for (String pos : positions){
+            outputs.add(findStepsToZ(pos));
         }
-        System.out.println(i);
 
-//        System.out.println(camelMap);
+
+//        positions.add("AAA");
+//        System.out.println(positions);
+//        System.out.println(positions1);
     }
 }
