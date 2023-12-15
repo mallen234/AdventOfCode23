@@ -14,10 +14,10 @@ public class Main {
         Day14Data dR = day14.tiltData();
 
 
-        for (int i = 0; i < 100; i++){
+        for (int i = 0; i < 100000; i++){
             dR = dR.tiltData();
         }
-        System.out.println(dR.getLoadSums());
+//        System.out.println(dR.getLoadSums());
 //        System.out.println(dR.getColumnSize());
 
     }
