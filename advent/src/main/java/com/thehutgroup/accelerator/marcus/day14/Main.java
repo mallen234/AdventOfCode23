@@ -22,15 +22,46 @@ public class Main {
 
         List<Integer> sequence = new ArrayList<>();
 
-        for(int i =0; i < 300; i++){
+        for(int i =0; i < 200; i++){
             day14 = test(day14);
             sequence.add(day14.getLoadSums());
             if (i % 50 == 0){
-                System.out.println(i);
+                System.out.println(day14.getLoadSums());
             }
-
         }
-        System.out.println(sequence);
+
+        findBillionth(sequence);
+
+    }
+
+    public static void findBillionth(List<Integer> sequence){
+        List<Integer> offSet = new ArrayList<>();
+        List<Integer> realSequence = new ArrayList<>();
+        boolean flag = false;
+        int hundred = sequence.get(100);
+        int hundredOne = sequence.get(101);
+        int hundredTwo = sequence.get(102);
+
+
+        for (int i = 0 ; i < sequence.size() -2 ; i++){
+            if ((sequence.get(i) == hundred) && (sequence.get(i+1) == hundredOne) && (sequence.get(i+2) == hundredTwo)){
+                offSet.add(i);
+                flag = !flag;
+            }
+            if (flag){
+                realSequence.add(sequence.get(i));
+            }
+        }
+        //        System.out.println(realSequence.get(45));
+        List<Integer> finSequence  = sequence.subList(offSet.get(0), offSet.get(1));
+
+        Integer fin_offset = 1000000000 - (offSet.get(0) + 1);
+        Integer length = offSet.get(1) - offSet.get(0);
+        Integer index = fin_offset % length;
+        System.out.println("---");
+        System.out.println(finSequence.get(index));
+
+
     }
 
     public static Day14Data test(Day14Data day14) throws DataOutOfBoundsException {
